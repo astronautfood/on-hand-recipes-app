@@ -3,7 +3,6 @@ import DrinkOptions from './DrinkOptions';
 
 const DrinksApi = ({ ingredient }) => {
 	const [drinkOptions, getDrinkOptions] = useState([]);
-	const [cocktailId, getCocktailById] = useState('');
 
 	useEffect(() => {
 		if (ingredient !== '') {
@@ -21,7 +20,7 @@ const DrinksApi = ({ ingredient }) => {
 				.then((drinkTitles) => getDrinkOptions(drinkTitles.drinks))
 				.catch((err) => console.log(err));
 		}
-	}, [cocktailId, ingredient]);
+	}, [ingredient]);
 
 	return (
 		<>
