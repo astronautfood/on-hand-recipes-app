@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DrinksApi from './DrinksApi';
 
 const IngredientList = ({ options }) => {
+	const [chosenIngredient, getChosenIngredient] = useState('');
+
 	console.log(options);
 	return (
 		<>
@@ -19,12 +22,16 @@ const IngredientList = ({ options }) => {
 									name='ingredients'
 									id={option.strIngredient1.toLowerCase().replace(/ /g, '')}
 									value={option.strIngredient1}
+									onClick={(e) => {
+										getChosenIngredient(e.target.value.replace(/ /g, '_'));
+									}}
 								/>
 							</label>
 						))}
 					</div>
 				</fieldset>
 			</form>
+			<DrinksApi ingredient={chosenIngredient} />
 		</>
 	);
 };
