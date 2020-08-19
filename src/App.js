@@ -1,8 +1,12 @@
 import React from 'react';
-import './App.css';
+import IngredientsApi from './components/IngredientsApi';
 
 function App() {
-	return <div className='App'></div>;
+	return (
+		<div className='App'>
+			<IngredientsApi />
+		</div>
+	);
 }
 
 export default App;
