@@ -8,8 +8,7 @@ const RecipeApi = ({ id }) => {
 			fetch(`https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`, {
 				headers: {
 					'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com',
-					'x-rapidapi-key':
-						'3c17603fedmshd82616db57b2b5ap1a29dfjsn213e3612c323',
+					'x-rapidapi-key': process.env.REACT_APP_COCKTAIL_DB_API_KEY,
 				},
 			})
 				.then((res) => res.json())
