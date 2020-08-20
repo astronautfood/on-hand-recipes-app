@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RecipeApi from './RecipeApi';
 
 const DrinkOptions = ({ drinks }) => {
 	const [cocktailId, getCocktailById] = useState('');
@@ -19,6 +20,7 @@ const DrinkOptions = ({ drinks }) => {
 					</button>
 				</div>
 			))}
+			<RecipeApi id={cocktailId} />
 		</>
 	);
 };
