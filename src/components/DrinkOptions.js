@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
-import RecipeApi from './RecipeApi';
+import React, { useState, useEffect } from 'react';
+import { drinksByIngredientApi } from '../utils/Apis';
+import RecipeResults from './RecipeResults';
 
-const DrinkOptions = ({ drinks }) => {
-	const [cocktailId, setCocktailById] = useState('');
+const DrinkOptions = ({ ingredient }) => {
+	const [cocktails, setCocktails] = useState([]);
+	const [cocktailId, setCocktailId] = useState([]);
 	const [isActive, setActive] = useState(true);
+
+	useEffect(() => {
+		if (ingredient !== '') {
+			drinksByIngredientApi(ingredient).then((res) => setCocktails(res));
+		}
+	}, [ingredient]);
 
 	return (
 		<>
-			{isActive && (
+			{isActive ? (
 				<div className='wrapper'>
 					<a href='/'>Back to Ingredients</a>
 					<div className='container'>
-						{drinks.map((drink) => (
+						{cocktails.map((drink) => (
 							<div className='drink' key={drink.idDrink}>
 								<h2>{drink.strDrink}</h2>
 								<button
 									id={drink.idDrink}
 									onClick={(e) => {
 										e.preventDefault();
-										setCocktailById(e.target.id);
+										setCocktailId(e.target.id);
 										setActive(false);
 									}}
 								>
@@ -28,8 +36,9 @@ const DrinkOptions = ({ drinks }) => {
 						))}
 					</div>
 				</div>
+			) : (
+				<RecipeResults id={cocktailId} />
 			)}
-			<RecipeApi id={cocktailId} />
 		</>
 	);
 };

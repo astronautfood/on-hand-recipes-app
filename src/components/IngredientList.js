@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
-import DrinksApi from './DrinksApi';
+import React, { useState, useEffect } from 'react';
+import { ingredientApi } from '../utils/Apis';
+import DrinkOptions from './DrinkOptions';
 
-const IngredientList = ({ options }) => {
+const IngredientList = () => {
+	const [ingredientList, setIngredientList] = useState([]);
 	const [chosenIngredient, setChosenIngredient] = useState('');
 	const [isActive, setActive] = useState(true);
 
-	console.log(options);
+	useEffect(() => {
+		ingredientApi().then((res) => setIngredientList(res));
+	}, []);
+
 	return (
 		<>
 			{isActive ? (
@@ -13,7 +18,7 @@ const IngredientList = ({ options }) => {
 					<fieldset>
 						<legend>Choose an ingredient</legend>
 						<div style={formLayout}>
-							{options.map((option) => (
+							{ingredientList.map((option) => (
 								<label
 									key={option.strIngredient1}
 									htmlFor={option.strIngredient1
@@ -37,7 +42,7 @@ const IngredientList = ({ options }) => {
 					</fieldset>
 				</form>
 			) : (
-				<DrinksApi ingredient={chosenIngredient} />
+				<DrinkOptions ingredient={chosenIngredient} />
 			)}
 		</>
 	);

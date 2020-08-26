@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { recipeByCocktailId } from '../utils/Apis';
 
-const RecipeResults = ({ recipe }) => {
+const RecipeResults = ({ id }) => {
+	const [recipe, setRecipe] = useState([]);
 	const [recipeIngredients, setRecipeIngredients] = useState([]);
 	const [recipeMeasurements, setRecipeMeasurements] = useState([]);
+
+	useEffect(() => {
+		recipeByCocktailId(id).then((res) => setRecipe(res));
+	}, [id]);
 
 	useEffect(() => {
 		const sortRecipe = (detail) => {
@@ -16,6 +22,7 @@ const RecipeResults = ({ recipe }) => {
 		setRecipeIngredients(sortRecipe('Ingredient'));
 		setRecipeMeasurements(sortRecipe('Measure'));
 	}, [recipe]);
+
 	return (
 		<>
 			<a href='/'>Back to Ingredients</a>
