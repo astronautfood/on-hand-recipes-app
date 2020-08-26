@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 const RecipeApi = ({ id }) => {
-	const [recipe, getRecipe] = useState([]);
+	const [recipe, setRecipe] = useState([]);
+	const [recipeIngredients, setRecipeIngredients] = useState([{}]);
+	const [recipeMeasurements, setRecipeMeasurements] = useState([{}]);
 
 	useEffect(() => {
-		if (id !== '') {
+		if (id) {
 			fetch(`https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`, {
 				headers: {
 					'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com',
@@ -12,24 +14,33 @@ const RecipeApi = ({ id }) => {
 				},
 			})
 				.then((res) => res.json())
-				.then((drinkData) => getRecipe(drinkData.drinks[0]))
+				.then((drinkData) => setRecipe(drinkData.drinks[0]))
 				.catch((err) => console.log(err));
 		}
 	}, [id]);
 
-	let ingredientObj = Object.entries(recipe).map(([key, value], i) =>
-		key.includes('Ingredient') && value !== null ? [key, value] : ''
-	);
+	useEffect(() => {
+		const sortRecipe = (detail) => {
+			const sortedObj = Object.keys(recipe).filter((key) =>
+				key.includes(detail) && recipe[key] !== null ? recipe[key] : ''
+			);
 
-	let ingredientArr = ingredientObj.filter((el) => el !== '');
+			return sortedObj.map((key) => recipe[key]);
+		};
 
-	console.log(ingredientArr);
+		setRecipeIngredients(sortRecipe('Ingredient'));
+		setRecipeMeasurements(sortRecipe('Measure'));
+	}, [recipe]);
 
-	return (
-		<>
-			<p>Recipe</p>
-		</>
-	);
+	if (recipe.idDrink === id) {
+		console.log('defined');
+	}
+
+	console.log(recipe);
+	console.log(recipeIngredients);
+	console.log(recipeMeasurements);
+
+	return <>{/* <p>{newArr}</p> */}</>;
 };
 
 export default RecipeApi;
