@@ -8,7 +8,7 @@ const IngredientList = ({ options }) => {
 	console.log(options);
 	return (
 		<>
-			{isActive && (
+			{isActive ? (
 				<form>
 					<fieldset>
 						<legend>Choose an ingredient</legend>
@@ -36,8 +36,9 @@ const IngredientList = ({ options }) => {
 						</div>
 					</fieldset>
 				</form>
+			) : (
+				<DrinksApi ingredient={chosenIngredient} />
 			)}
-			<DrinksApi ingredient={chosenIngredient} />
 		</>
 	);
 };
