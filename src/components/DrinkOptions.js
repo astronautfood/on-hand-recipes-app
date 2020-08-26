@@ -3,23 +3,29 @@ import RecipeApi from './RecipeApi';
 
 const DrinkOptions = ({ drinks }) => {
 	const [cocktailId, setCocktailById] = useState('');
+	const [isActive, setActive] = useState(true);
 
 	return (
 		<>
-			{drinks.map((drink) => (
-				<div className='drink' key={drink.idDrink}>
-					<h2>{drink.strDrink}</h2>
-					<button
-						id={drink.idDrink}
-						onClick={(e) => {
-							e.preventDefault();
-							setCocktailById(e.target.id);
-						}}
-					>
-						View Ingredients
-					</button>
+			{isActive && (
+				<div className='container'>
+					{drinks.map((drink) => (
+						<div className='drink' key={drink.idDrink}>
+							<h2>{drink.strDrink}</h2>
+							<button
+								id={drink.idDrink}
+								onClick={(e) => {
+									e.preventDefault();
+									setCocktailById(e.target.id);
+									setActive(false);
+								}}
+							>
+								View Ingredients
+							</button>
+						</div>
+					))}
 				</div>
-			))}
+			)}
 			<RecipeApi id={cocktailId} />
 		</>
 	);
