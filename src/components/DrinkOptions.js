@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RecipeApi from './RecipeApi';
 
 const DrinkOptions = ({ drinks }) => {
-	const [cocktailId, getCocktailById] = useState('');
+	const [cocktailId, setCocktailById] = useState('');
 
 	return (
 		<>
@@ -13,7 +13,7 @@ const DrinkOptions = ({ drinks }) => {
 						id={drink.idDrink}
 						onClick={(e) => {
 							e.preventDefault();
-							getCocktailById(e.target.id);
+							setCocktailById(e.target.id);
 						}}
 					>
 						View Ingredients

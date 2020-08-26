@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DrinkOptions from './DrinkOptions';
 
 const DrinksApi = ({ ingredient }) => {
-	const [drinkOptions, getDrinkOptions] = useState([]);
+	const [drinkOptions, setDrinkOptions] = useState([]);
 
 	useEffect(() => {
 		if (ingredient !== '') {
@@ -17,7 +17,7 @@ const DrinksApi = ({ ingredient }) => {
 				}
 			)
 				.then((res) => res.json())
-				.then((drinkTitles) => getDrinkOptions(drinkTitles.drinks))
+				.then((drinkTitles) => setDrinkOptions(drinkTitles.drinks))
 				.catch((err) => console.log(err));
 		}
 	}, [ingredient]);

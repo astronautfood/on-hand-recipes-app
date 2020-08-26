@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import IngredientList from './IngredientList';
 
 const IngredientsApi = () => {
-	const [ingredientOptions, getIngredientOptions] = useState([]);
+	const [ingredientOptions, setIngredientOptions] = useState([]);
 
 	useEffect(() => {
 		fetch(`https://the-cocktail-db.p.rapidapi.com/list.php?i=list`, {
@@ -13,7 +13,7 @@ const IngredientsApi = () => {
 			},
 		})
 			.then((res) => res.json())
-			.then((ingredientData) => getIngredientOptions(ingredientData.drinks))
+			.then((ingredientData) => setIngredientOptions(ingredientData.drinks))
 			.catch((err) => console.log(err));
 	}, []);
 	return (
