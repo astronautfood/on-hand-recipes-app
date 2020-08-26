@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const RecipeApi = ({ id }) => {
 	const [recipe, setRecipe] = useState([]);
-	const [recipeIngredients, setRecipeIngredients] = useState([{}]);
-	const [recipeMeasurements, setRecipeMeasurements] = useState([{}]);
+	const [recipeIngredients, setRecipeIngredients] = useState([]);
+	const [recipeMeasurements, setRecipeMeasurements] = useState([]);
 
 	useEffect(() => {
 		if (id) {
@@ -37,10 +37,25 @@ const RecipeApi = ({ id }) => {
 	}
 
 	console.log(recipe);
-	console.log(recipeIngredients);
 	console.log(recipeMeasurements);
 
-	return <>{/* <p>{newArr}</p> */}</>;
+	return (
+		<>
+			{console.log(recipeIngredients)}
+			<h2>{recipe.strDrink}</h2>
+			<img src={recipe.strDrinkThumb} alt={recipe.strDrink} />
+			<div className='container'>
+				{recipeMeasurements.map((measurement, i) => (
+					<p key={i}>{measurement}</p>
+				))}
+				{recipeIngredients.map((ingredient) => (
+					<p key={ingredient}>{ingredient}</p>
+				))}
+				<p>{recipe.strGlass}</p>
+				<p>{recipe.strInstructions}</p>
+			</div>
+		</>
+	);
 };
 
 export default RecipeApi;
